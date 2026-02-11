@@ -19,7 +19,6 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
 
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [sectionScroll, setSectionScroll] = useState(0);
 
   // ===== SMOOTH SCROLL SETUP =====
   const scrollTarget = useRef(0);
@@ -36,14 +35,13 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
         document.documentElement.scrollHeight - window.innerHeight;
 
       scrollTarget.current = (scrollTop / docHeight) * 100;
-      setSectionScroll(scrollTop);
     };
 
     const animate = () => {
       scrollCurrent.current = lerp(
         scrollCurrent.current,
         scrollTarget.current,
-        0.08 // smaller = smoother
+        0.08
       );
 
       setScrollProgress(scrollCurrent.current);
@@ -98,30 +96,35 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
   const easeInOutCubic = (t: number) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-  // Slower oscillation (150% scroll)
-  const normalizedProgress = (scrollProgress % 150) / 150;
+  // Smooth single-direction movement
+  const normalizedProgress = (scrollProgress % 200) / 200;
+  const linePosition = -15 + easeInOutCubic(normalizedProgress) * 130;
 
-  let linePosition;
-  if (normalizedProgress < 0.5) {
-    const progress = normalizedProgress * 2;
-    linePosition = -10 + easeInOutCubic(progress) * 120;
-  } else {
-    const progress = (normalizedProgress - 0.5) * 2;
-    linePosition = 110 - easeInOutCubic(progress) * 120;
-  }
-
-  // ===== PARALLAX ZOOM (SMOOTH) =====
+  // ===== PARALLAX ZOOM =====
   const zoomScale = 1 + scrollProgress * 0.002;
 
   return (
     <section className="relative py-12 md:py-20 text-white overflow-hidden -mb-1">
-      {/* Animated top border line */}
-      <div className="absolute top-0 left-0 w-full h-1 overflow-hidden z-10">
+      
+      {/* ===== Animated Top Scroll Line ===== */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden z-10 pointer-events-none">
         <div
-          className="absolute h-full w-40 md:w-48 bg-gradient-to-r from-transparent via-white to-transparent will-change-transform"
+          className="absolute will-change-transform"
           style={{
+            height: '3px', // thickness
+            width: '220px', // length
             left: `${linePosition}%`,
             transform: 'translateX(-50%)',
+            background: `
+              linear-gradient(
+                90deg,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.9) 50%,
+                rgba(255,255,255,0) 100%
+              )
+            `,
+            filter: 'blur(1px)',
+            boxShadow: '0 0 12px rgba(255,255,255,0.7)',
           }}
         />
       </div>
@@ -141,7 +144,6 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
           }}
         />
 
-        {/* Fade */}
         <div
           className="absolute inset-0 w-full h-full"
           style={{
@@ -150,15 +152,6 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
           }}
         />
       </div>
-
-      {/* Mobile tweak */}
-      <style>{`
-        @media (max-width: 768px) {
-          .services-bg {
-            background-size: 600% !important;
-          }
-        }
-      `}</style>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6">
         <div className="text-center mb-8 md:mb-16">
@@ -240,3 +233,4 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
     </section>
   );
 }
+
