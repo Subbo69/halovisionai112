@@ -20,7 +20,6 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // ===== SMOOTH SCROLL SETUP =====
   const scrollTarget = useRef(0);
   const scrollCurrent = useRef(0);
   const rafRef = useRef<number | null>(null);
@@ -57,7 +56,6 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
     };
   }, []);
 
-  // ===== SERVICES =====
   const services = [
     {
       icon: Rocket,
@@ -92,27 +90,24 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
     setExpandedCards(newSet);
   };
 
-  // ===== EASING =====
   const easeInOutCubic = (t: number) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-  // Smooth single-direction movement
   const normalizedProgress = (scrollProgress % 200) / 200;
   const linePosition = -15 + easeInOutCubic(normalizedProgress) * 130;
 
-  // ===== PARALLAX ZOOM =====
   const zoomScale = 1 + scrollProgress * 0.002;
 
   return (
     <section className="relative py-12 md:py-20 text-white overflow-hidden -mb-1">
-      
+
       {/* ===== Animated Top Scroll Line ===== */}
       <div className="absolute top-0 left-0 w-full overflow-hidden z-10 pointer-events-none">
         <div
           className="absolute will-change-transform"
           style={{
-            height: '3px', // thickness
-            width: '220px', // length
+            height: '3px',
+            width: '374px', // +70% longer
             left: `${linePosition}%`,
             transform: 'translateX(-50%)',
             background: `
@@ -233,4 +228,3 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
     </section>
   );
 }
-
