@@ -271,7 +271,7 @@ export default function BookingForm({
       formBody.append('time', selectedTime);
       formBody.append('timezone', selectedTimezone);
 
-      await fetch('https://n8n.halo-vision.com/webhook/halovisionschedule880088', {
+      await fetch('https://n8n.halovisionai.cloud/webhook/halovisionschedule880088', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formBody.toString(),
