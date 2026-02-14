@@ -3,11 +3,8 @@ import { ArrowLeft, Loader2 } from 'lucide-react';
 import { translations, Language } from '../utils/translations';
 
 interface BookingFormProps {
-  selectedDate: Date;
-  selectedTime: string;
-  selectedTimezone: string;
   onBack: () => void;
-  onSuccess: () => void;
+  onSuccess: (data: any) => void;
   language: Language;
 }
 
