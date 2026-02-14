@@ -173,7 +173,7 @@ export default function ChatBot({ context, onContextUsed, language }: ChatBotPro
       const history = [...messages, { role: 'user', content: userMessage }].slice(-10);
 
       const response = await fetch(
-        'https://n8n.halovisionai.cloud/webhook-test/halovisionchatbot997655',
+        'https://n8n.halovisionai.cloud/webhook/halovisionchatbot997655',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
