@@ -107,7 +107,7 @@ export default function Services({ onAskAIClick, language }: ServicesProps) {
           className="absolute will-change-transform"
           style={{
             height: '3px',
-            width: '454px', // +70% longer
+            width: '467px', // +70% longer
             left: `${linePosition}%`,
             transform: 'translateX(-50%)',
             background: `
