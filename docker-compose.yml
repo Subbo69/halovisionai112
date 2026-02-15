@@ -1,7 +1,7 @@
 services:
- app:
- build: .
- container_name: halovisionai112git_v2
- restart: unless-stopped
- ports:
- - "8082:80"
+  app:
+    build: .
+    container_name: halovisionai_new
+    restart: unless-stopped
+    ports:
+      - "8081:80"
