@@ -25,7 +25,8 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-36 md:pt-40 pb-16 overflow-hidden">
-      {/* Shared Background */}
+      
+      {/* Background */}
       <div
         ref={bgRef}
         className="absolute inset-0 w-full h-full will-change-transform z-[-1]"
@@ -38,6 +39,7 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
       />
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-6 w-full text-center flex flex-col items-center">
+        
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white mt-10 drop-shadow-lg">
           {t.heroTitle}
         </h1>
@@ -46,24 +48,25 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
           {t.heroSubtitle}
         </p>
 
-        {/* 🎥 VIDEO — 7% smaller */}
+        {/* 🎥 Optimized YouTube Embed */}
         <div className="w-full mb-12 mt-6" style={{ maxWidth: '93%' }}>
           <div
             className="relative w-full overflow-hidden rounded-3xl shadow-2xl"
             style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              src="https://www.youtube.com/watch?v=Py1ClI35v_k"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              referrerPolicy="strict-origin"
+              src="https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=1&rel=0"
               title="Hero Video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
               className="absolute inset-0 w-full h-full border-0"
-              muted
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
         </div>
 
+        {/* CTA */}
         <div className="flex justify-center mb-6 w-full">
           <button
             onClick={onBookingClick}
@@ -74,6 +77,7 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
           </button>
         </div>
 
+        {/* AI Button */}
         <button
           onClick={onAskAIClick}
           className="text-white flex items-center gap-2 hover:text-white/70 transition-colors text-[130%] drop-shadow"
