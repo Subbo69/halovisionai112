@@ -1,6 +1,6 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Volume2 } from 'lucide-react';
 import { translations, Language } from '../utils/translations';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface HeroProps {
   onBookingClick: () => void;
@@ -11,6 +11,7 @@ interface HeroProps {
 export default function Hero({ onBookingClick, onAskAIClick, language }: HeroProps) {
   const t = translations[language];
   const bgRef = useRef<HTMLDivElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
 
   /* 🔁 PARALLAX EFFECT */
   useEffect(() => {
@@ -48,14 +49,15 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
           {t.heroSubtitle}
         </p>
 
-        {/* 🎥 Optimized YouTube Embed */}
+        {/* 🎥 VIDEO */}
         <div className="w-full mb-12 mt-6" style={{ maxWidth: '93%' }}>
           <div
             className="relative w-full overflow-hidden rounded-3xl shadow-2xl"
             style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              src="https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=1&rel=0"
+              key={isMuted ? 'muted' : 'unmuted'}
+              src={`https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&playsinline=1`}
               title="Hero Video"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
@@ -64,6 +66,16 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
               referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
+
+          {isMuted && (
+            <button
+              onClick={() => setIsMuted(false)}
+              className="mt-5 px-6 py-3 bg-black/60 backdrop-blur text-white rounded-full flex items-center gap-2 hover:bg-black/80 transition"
+            >
+              <Volume2 className="w-4 h-4" />
+              Enable Sound
+            </button>
+          )}
         </div>
 
         {/* CTA */}
