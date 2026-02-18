@@ -1,6 +1,6 @@
-import { ArrowRight, Sparkles, Volume2 } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { translations, Language } from '../utils/translations';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface HeroProps {
   onBookingClick: () => void;
@@ -11,7 +11,6 @@ interface HeroProps {
 export default function Hero({ onBookingClick, onAskAIClick, language }: HeroProps) {
   const t = translations[language];
   const bgRef = useRef<HTMLDivElement>(null);
-  const [hasStarted, setHasStarted] = useState(false);
 
   /* 🔁 PARALLAX */
   useEffect(() => {
@@ -49,37 +48,22 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
           {t.heroSubtitle}
         </p>
 
-        {/* 🎥 VIDEO */}
+        {/* 🎥 VIDEO — No autoplay */}
         <div className="w-full mb-12 mt-6" style={{ maxWidth: '93%' }}>
           <div
             className="relative w-full overflow-hidden rounded-3xl shadow-2xl"
             style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              key={hasStarted ? 'started' : 'idle'}
-              src={
-                hasStarted
-                  ? "https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=0&rel=0&playsinline=1"
-                  : "https://www.youtube-nocookie.com/embed/Py1ClI35v_k?rel=0&playsinline=1"
-              }
+              src="https://www.youtube-nocookie.com/embed/Py1ClI35v_k?rel=0&playsinline=1"
               title="Hero Video"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
               className="absolute inset-0 w-full h-full border-0"
               referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
-
-          {!hasStarted && (
-            <button
-              onClick={() => setHasStarted(true)}
-              className="mt-5 px-6 py-3 bg-black/60 backdrop-blur text-white rounded-full flex items-center gap-2 hover:bg-black/80 transition"
-            >
-              <Volume2 className="w-4 h-4" />
-              Play with Sound
-            </button>
-          )}
         </div>
 
         {/* CTA */}
