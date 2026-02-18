@@ -53,7 +53,7 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
             style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              src="https://www.kapwing.com/e/69626d81f38c02bfe76a52c0"
+              src="https://www.youtube.com/watch?v=Py1ClI35v_k"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               referrerPolicy="strict-origin"
