@@ -11,9 +11,9 @@ interface HeroProps {
 export default function Hero({ onBookingClick, onAskAIClick, language }: HeroProps) {
   const t = translations[language];
   const bgRef = useRef<HTMLDivElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
 
-  /* 🔁 PARALLAX EFFECT */
+  /* 🔁 PARALLAX */
   useEffect(() => {
     const handleScroll = () => {
       if (!bgRef.current) return;
@@ -56,8 +56,12 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
             style={{ paddingBottom: '56.25%' }}
           >
             <iframe
-              key={isMuted ? 'muted' : 'unmuted'}
-              src={`https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=${isMuted ? 1 : 0}&rel=0&playsinline=1`}
+              key={hasStarted ? 'started' : 'idle'}
+              src={
+                hasStarted
+                  ? "https://www.youtube-nocookie.com/embed/Py1ClI35v_k?autoplay=1&mute=0&rel=0&playsinline=1"
+                  : "https://www.youtube-nocookie.com/embed/Py1ClI35v_k?rel=0&playsinline=1"
+              }
               title="Hero Video"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
@@ -67,13 +71,13 @@ export default function Hero({ onBookingClick, onAskAIClick, language }: HeroPro
             />
           </div>
 
-          {isMuted && (
+          {!hasStarted && (
             <button
-              onClick={() => setIsMuted(false)}
+              onClick={() => setHasStarted(true)}
               className="mt-5 px-6 py-3 bg-black/60 backdrop-blur text-white rounded-full flex items-center gap-2 hover:bg-black/80 transition"
             >
               <Volume2 className="w-4 h-4" />
-              Enable Sound
+              Play with Sound
             </button>
           )}
         </div>
