@@ -186,7 +186,7 @@ export default function WorkWithUs({ onBookingClick, language }: WorkWithUsProps
 
       {/* Copyright Footer */}
       <div className="mt-24 border-t border-white/10 pt-8 text-center text-sm text-gray-500">
-        © {2026} Halovision AI. All rights reserved.
+        © {currentYear} Halovision AI. All rights reserved.
       </div>
     </section>
   );
